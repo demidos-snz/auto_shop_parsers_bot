@@ -1,0 +1,1 @@
+# auto_shop_parsers_bot
