@@ -4,6 +4,7 @@ from aiogram import Router
 from aiogram.types import Message
 
 from markups import list_parsers_menu, needful_or_replacements_menu
+from settings import SERVER_ADDRESS
 from text_of_buttons import GET_RESULTS_BY_PARSER, GET_RESULTS_BY_ALL_PARSERS, LIST_PARSERS, GET_LIST_PARSERS, \
     UPDATE_LIST_PARSERS
 from utils import get_text, add_history
@@ -46,7 +47,7 @@ async def get_list_parsers_menu(message: Message):
 
 async def get_parsers() -> list[str]:
     # fixme url
-    return requests.get(url='http://127.0.0.1:8000/parsers').json()
+    return requests.get(url=f'{SERVER_ADDRESS}/parsers').json()
 
 
 @router.message(F.text == UPDATE_LIST_PARSERS)

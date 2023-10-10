@@ -15,6 +15,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 from constants import PARAMS, EXAMPLE_VENDOR_CODES
 from markups import main_menu, results_by_parser_menu, list_vendor_codes_menu, main_menu_btn
+from settings import SERVER_ADDRESS
 from text_of_buttons import (
     GET_RESULTS_BY_VENDOR_CODE, GET_RESULTS_BY_ALL_VENDOR_CODES, NEEDFUL_VENDOR_CODE,
     VENDOR_CODE_WITH_REPLACEMENTS, LIST_VENDOR_CODES, GET_LIST_VENDOR_CODES_MESSAGE,
@@ -65,7 +66,7 @@ async def get_list_parsers_menu(message: Message):
     elif GET_RESULTS_BY_ALL_VENDOR_CODES in PARAMS[message.from_user.id]:
         # fixme url, double
         response: requests.Response = requests.post(
-            url='http://127.0.0.1:8000/run_all',
+            url=f'{SERVER_ADDRESS}/run_all',
             json={'only_needful_vendor_code': True},
         )
 
@@ -107,7 +108,7 @@ async def get_list_parsers_menu(message: Message):
     elif GET_RESULTS_BY_ALL_VENDOR_CODES in PARAMS[message.from_user.id]:
         # fixme url, double
         response: requests.Response = requests.post(
-            url='http://127.0.0.1:8000/run_all',
+            url=f'{SERVER_ADDRESS}/run_all',
             json={'only_needful_vendor_code': False},
         )
 
@@ -155,7 +156,7 @@ async def get_list_parsers_menu(message: Message):
 
 async def get_vendor_codes(message: Message) -> list[str]:
     # fixme url
-    vendor_codes: list[str] = requests.get(url='http://127.0.0.1:8000/vendor_codes').json()
+    vendor_codes: list[str] = requests.get(url=f'{SERVER_ADDRESS}/vendor_codes').json()
 
     if not vendor_codes:
         await message.answer(
@@ -177,7 +178,7 @@ async def get_list_parsers_menu_(message: Message):
 
     # fixme url
     response: requests.Response = requests.post(
-        url='http://127.0.0.1:8000/vendor_codes',
+        url=f'{SERVER_ADDRESS}/vendor_codes',
         json=result,
     )
 
@@ -211,7 +212,7 @@ async def get_weather_forecast(message: Message):
 
         # fixme url
         response: requests.Response = requests.post(
-            url='http://127.0.0.1:8000/run',
+            url=f'{SERVER_ADDRESS}/run',
             json=data,
         )
 
