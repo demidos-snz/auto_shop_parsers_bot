@@ -218,7 +218,7 @@ async def get_list_parsers_menu_(message: Message):
     for maker, vendor_code in result['data']:
         if str(vendor_code) in vendor_codes:
             good_vendor_codes.append(str(vendor_code))
-            good_makers.append(maker.lower())
+            good_makers.append(str(maker).lower())
         else:
             bad_vendor_codes.append(vendor_code)
 
