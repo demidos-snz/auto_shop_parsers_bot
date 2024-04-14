@@ -7,15 +7,13 @@ ENV PYTHONWARNINGS=ignore \
     APP_DIR=/app
 
 WORKDIR $APP_DIR
+RUN useradd -ms /bin/bash $USER_APP
 
 RUN apt-get update && apt-get upgrade -y
 
-RUN useradd -ms /bin/bash $USER_APP
-
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-
 COPY ./ ./
+
+RUN pip install -r requirements.txt
 
 RUN chown -R $USER_APP. $APP_DIR
 USER $USER_APP
