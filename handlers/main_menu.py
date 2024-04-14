@@ -1,22 +1,19 @@
 from aiogram import Router, F
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from constants import BASE_TEXT, PARAMS
-from markups import main_menu
-from text_of_buttons import MAIN_MENU
-
+from buttons.text_of_buttons import MAIN_MENU
+from markups import main_menu as mm
+from utils import get_text
 
 router: Router = Router()
 
 
 @router.message(F.text == MAIN_MENU)
-async def get_main_menu(message: Message):
-    # fixme delete Params
-    user_id: int = message.from_user.id
+async def main_menu(message: Message, state: FSMContext):
+    await message.answer(
+        text=get_text(message_text=message.text),
+        reply_markup=mm.as_markup(resize_keyboard=True),
+    )
 
-    if user_id in PARAMS:
-        PARAMS[user_id].clear()
-    else:
-        PARAMS[user_id] = []
-
-    await message.answer(text=BASE_TEXT, reply_markup=main_menu.as_markup(resize_keyboard=True))
+    await state.clear()

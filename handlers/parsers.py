@@ -1,57 +1,71 @@
-import requests
 from aiogram import F
 from aiogram import Router
 from aiogram.types import Message
 
-from markups import list_parsers_menu, needful_or_replacements_menu
-from settings import SERVER_ADDRESS
-from text_of_buttons import GET_RESULTS_BY_PARSER, GET_RESULTS_BY_ALL_PARSERS, LIST_PARSERS, GET_LIST_PARSERS, \
-    UPDATE_LIST_PARSERS
-from utils import get_text, add_history
-
+from buttons.text_of_buttons import (
+    GET_RESULTS_BY_PARSER, GET_RESULTS_BY_ALL_PARSERS,
+    PARSERS, GET_PARSERS,
+    UPDATE_PARSERS,
+)
+from constants import IN_DEVELOPING, PARSES_LIST_IS_EMPTY
+from handlers.utils import get_parsers
+from handlers.vendor_codes.mm_vendor_codes import VendorCodeState
+from markups import (
+    list_parsers_menu, needful_or_replacements_vendor_code_menu,
+    needful_or_replacements_vendor_codes_menu,
+)
+from utils import get_text
 
 router: Router = Router()
 
 
-@router.message(F.text == LIST_PARSERS)
-async def get_list_parsers_menu(message: Message):
-    # fixme delete Params
-    add_history(user_id=message.from_user.id, data=message.text)
-
-    text: str = get_text(message_text=message.text)
-    await message.answer(text=text, reply_markup=list_parsers_menu.as_markup(resize_keyboard=True))
+@router.message(F.text == PARSERS)
+async def mm_parsers(message: Message):
+    await message.answer(
+        text=get_text(message_text=message.text),
+        reply_markup=list_parsers_menu.as_markup(resize_keyboard=True),
+    )
 
 
 @router.message(F.text == GET_RESULTS_BY_PARSER)
-async def get_list_parsers_menu(message: Message):
-    # fixme В разработке...
-    text: str = 'В разработке...'
-    await message.answer(text=text)
+async def results_by_parser(message: Message):
+    await message.answer(text=IN_DEVELOPING)
 
 
-@router.message(F.text == GET_RESULTS_BY_ALL_PARSERS)
-async def get_list_parsers_menu(message: Message):
-    text: str = get_text(message_text=message.text)
-    await message.answer(text=text, reply_markup=needful_or_replacements_menu.as_markup(resize_keyboard=True))
+@router.message(
+    VendorCodeState.results_by_vendor_code,
+    F.text == GET_RESULTS_BY_ALL_PARSERS,
+)
+async def results_for_all_parsers_by_vendor_code(message: Message):
+    await message.answer(
+        text=get_text(message_text=message.text),
+        reply_markup=needful_or_replacements_vendor_code_menu.as_markup(resize_keyboard=True),
+    )
 
 
-@router.message(F.text == GET_LIST_PARSERS)
-async def get_list_parsers_menu(message: Message):
+@router.message(
+    VendorCodeState.results_by_all_vendor_codes,
+    F.text == GET_RESULTS_BY_ALL_PARSERS,
+)
+async def results_for_all_parsers_by_all_vendor_codes(message: Message):
+    await message.answer(
+        text=get_text(message_text=message.text),
+        reply_markup=needful_or_replacements_vendor_codes_menu.as_markup(resize_keyboard=True),
+    )
+
+
+@router.message(F.text == GET_PARSERS)
+async def parsers_list(message: Message):
     parsers = await get_parsers()
+
     text: str = '\n'.join(parsers)
-    if text:
-        await message.answer(text=text, reply_markup=list_parsers_menu.as_markup(resize_keyboard=True))
-    else:
-        await message.answer(text='Список parsers пуст', reply_markup=list_parsers_menu.as_markup(resize_keyboard=True))
+
+    await message.answer(
+        text=text or PARSES_LIST_IS_EMPTY,
+        reply_markup=list_parsers_menu.as_markup(resize_keyboard=True),
+    )
 
 
-async def get_parsers() -> list[str]:
-    # fixme url
-    return requests.get(url=f'{SERVER_ADDRESS}/parsers').json()
-
-
-@router.message(F.text == UPDATE_LIST_PARSERS)
-async def get_list_parsers_menu(message: Message):
-    # fixme В разработке...
-    text: str = 'В разработке...'
-    await message.answer(text=text)
+@router.message(F.text == UPDATE_PARSERS)
+async def update_parsers(message: Message):
+    await message.answer(text=IN_DEVELOPING)

@@ -2,16 +2,23 @@ from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 
-from constants import PARAMS
+from constants import BASE_TEXT, WELCOME_TEXT
 from markups import main_menu
 
 router: Router = Router()
 
 
-# fixme help new def
-@router.message(Command('start', 'help'))
-async def example_bot_operation(message: Message):
-    # fixme delete Params
-    PARAMS[message.from_user.id] = []
-    text: str = f'Привет, {message.from_user.first_name}!'
-    await message.answer(text=text, reply_markup=main_menu.as_markup(resize_keyboard=True))
+@router.message(Command('start'))
+async def start_command(message: Message):
+    await message.answer(
+        text=WELCOME_TEXT.format(message.from_user.first_name),
+        reply_markup=main_menu.as_markup(resize_keyboard=True),
+    )
+
+
+@router.message(Command('help'))
+async def start_command(message: Message):
+    await message.answer(
+        text=BASE_TEXT,
+        reply_markup=main_menu.as_markup(resize_keyboard=True),
+    )
