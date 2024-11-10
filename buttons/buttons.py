@@ -1,13 +1,6 @@
 from aiogram.types import KeyboardButton
 
-from buttons.text_of_buttons import (
-    MAIN_MENU, VENDOR_CODES, GET_RESULTS_BY_ALL_VENDOR_CODES,
-    GET_RESULTS_BY_VENDOR_CODE, GET_RESULTS_BY_PARSER, GET_RESULTS_BY_ALL_PARSERS,
-    LIST_VENDOR_CODES, GET_LIST_VENDOR_CODES_MESSAGE, GET_LIST_VENDOR_CODES_FILE,
-    UPDATE_LIST_VENDOR_CODES, PARSERS, NEEDFUL_VENDOR_CODE,
-    VENDOR_CODE_WITH_REPLACEMENTS, GET_PARSERS, UPDATE_PARSERS,
-    NEEDFUL_VENDOR_CODES, VENDOR_CODES_WITH_REPLACEMENTS,
-)
+from buttons.text_of_buttons import *
 
 main_menu_btn: KeyboardButton = KeyboardButton(text=MAIN_MENU)
 # -----------------------------

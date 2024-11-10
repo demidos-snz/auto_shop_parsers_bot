@@ -1,4 +1,4 @@
-from constants import BASE_TEXT
+from constants.constants import BASE_TEXT
 
 
 def get_text(message_text: str) -> str:

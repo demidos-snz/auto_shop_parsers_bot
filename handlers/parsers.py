@@ -7,7 +7,7 @@ from buttons.text_of_buttons import (
     PARSERS, GET_PARSERS,
     UPDATE_PARSERS,
 )
-from constants import IN_DEVELOPING, PARSES_LIST_IS_EMPTY
+from constants.constants import IN_DEVELOPING, PARSES_LIST_IS_EMPTY
 from handlers.utils import get_parsers
 from handlers.vendor_codes.mm_vendor_codes import VendorCodeState
 from markups import (

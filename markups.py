@@ -9,7 +9,7 @@ from buttons.buttons import (
     update_list_vendor_codes_btn, get_parsers_btn, update_parsers_btn,
     needful_vendor_codes_btn, vendor_codes_with_replacements_btn,
 )
-from constants import (
+from constants.constants import (
     SIZE_MAIN_MENU_BUTTONS, SIZE_RESULTS_BY_PARSER_MENU_BUTTONS,
     SIZE_NEEDFUL_OR_REPLACEMENTS_MENU_BUTTONS, SIZE_LIST_VENDOR_CODES_MENU_BUTTONS,
     SIZE_LIST_PARSERS_MENU_BUTTONS, SIZE_RESULTS_BY_VENDOR_CODES_BUTTONS,

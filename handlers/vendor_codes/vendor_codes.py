@@ -4,7 +4,7 @@ from aiogram import F
 from aiogram import Router
 from aiogram.types import Message
 
-from constants import VENDOR_CODE_NOT_EXISTS_IN_LIST_VENDOR_CODES
+from constants.constants import VENDOR_CODE_NOT_EXISTS_IN_LIST_VENDOR_CODES
 from handlers.urls import RUN_URL
 from handlers.utils import get_vendor_codes
 from handlers.vendor_codes.utils import send_file_or_error

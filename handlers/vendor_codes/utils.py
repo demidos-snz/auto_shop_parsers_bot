@@ -6,7 +6,7 @@ from aiogram.types import (
     Message, FSInputFile,
 )
 
-from constants import (
+from constants.constants import (
     ERROR_FILE_TEXT, SUCCESS_FILE_TEXT,
 )
 

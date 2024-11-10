@@ -10,7 +10,7 @@ from buttons.text_of_buttons import (
     NEEDFUL_VENDOR_CODE, VENDOR_CODE_WITH_REPLACEMENTS,
     GET_RESULTS_BY_VENDOR_CODE,
 )
-from constants import (
+from constants.constants import (
     CHOOSE_ONE_OF_VENDOR_CODES, SIZE_LIST_VENDOR_CODES_MENU,
     ERROR_VENDOR_CODES_TEXT,
 )
