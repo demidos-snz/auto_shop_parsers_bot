@@ -7,8 +7,9 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from handlers import (
     commands,
     main_menu as mm_handler,
-    parsers,
+    # parsers,
     vendor_codes,
+    reports,
 )
 
 try:
@@ -31,12 +32,14 @@ async def main() -> None:
     dp.include_routers(
         commands.router,
         mm_handler.router,
-        parsers.router,
+        # parsers.router,
+        reports.reports.router,
+        reports.download.router,
         vendor_codes.mm_vendor_codes.router,
         vendor_codes.list_vendor_codes.router,
-        vendor_codes.results_by_vendor_code.router,
-        vendor_codes.results_by_all_vendor_codes.router,
-        vendor_codes.vendor_codes.router,
+        # vendor_codes.results_by_vendor_code.router,
+        # vendor_codes.results_by_all_vendor_codes.router,
+        # vendor_codes.vendor_codes.router,
     )
 
     await bot.delete_webhook(drop_pending_updates=True)

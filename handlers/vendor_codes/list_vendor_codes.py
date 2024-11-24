@@ -15,17 +15,17 @@ from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
 from buttons.text_of_buttons import (
-    LIST_VENDOR_CODES, GET_LIST_VENDOR_CODES_MESSAGE,
-    GET_LIST_VENDOR_CODES_FILE, UPDATE_LIST_VENDOR_CODES,
+    GET_LIST_VENDOR_CODES_MESSAGE, GET_LIST_VENDOR_CODES_FILE,
+    UPDATE_LIST_VENDOR_CODES,
 )
 from constants.constants import (
-    EXAMPLE_VENDOR_CODES, VENDOR_CODE_NOT_EXISTS_IN_LIST_VENDOR_CODES, LIST_VENDOR_CODES_IS_EMPTY_TEXT,
-    LIST_VENDOR_CODES_FILENAME, LIST_VENDOR_CODES_UPDATED_TEXT, ERROR_UPDATE_LIST_VENDOR_CODES_TEXT,
-    UPDATE_LIST_VENDOR_CODES_TEXT, ERROR_OF_ANOTHER_DOCUMENT_TYPE,
+    EXAMPLE_VENDOR_CODES, VENDOR_CODE_NOT_EXISTS_IN_LIST_VENDOR_CODES,
 )
-from handlers.urls import VENDOR_CODES_URL, RUN_URL, RUN_ALL_PAIR_DATA_URL
+from constants.list_vendor_codes_constants import *
+from handlers.urls import GET_VENDOR_CODES_URL, RUN_URL, RUN_ALL_PAIR_DATA_URL
 from handlers.utils import get_vendor_codes
-from markups import list_vendor_codes_menu
+from handlers.vendor_codes.utils import validate_vendor_codes
+from markups.markups import list_vendor_codes_menu
 from utils import get_text
 
 router: Router = Router()
@@ -41,9 +41,8 @@ async def list_vendor_codes(message: Message):
 
 @router.message(F.text == GET_LIST_VENDOR_CODES_MESSAGE)
 async def list_vendor_codes_message(message: Message):
-    vendor_codes = await get_vendor_codes()
-
-    text: str = '\n'.join(vendor_codes)
+    # fixme types
+    text = await validate_vendor_codes(vendor_codes=await get_vendor_codes())
 
     await message.answer(
         text=text or LIST_VENDOR_CODES_IS_EMPTY_TEXT,
@@ -53,9 +52,8 @@ async def list_vendor_codes_message(message: Message):
 
 @router.message(F.text == GET_LIST_VENDOR_CODES_FILE)
 async def list_vendor_codes_file(message: Message):
-    vendor_codes = await get_vendor_codes()
-
-    text: str = '\n'.join(vendor_codes)
+    # fixme types
+    text = await validate_vendor_codes(vendor_codes=await get_vendor_codes())
 
     if text:
         with tempfile.TemporaryFile() as f:
@@ -85,7 +83,7 @@ async def update_list_vendor_code(message: Message):
 
     # fixme asyncio
     response: requests.Response = requests.post(
-        url=VENDOR_CODES_URL,
+        url=GET_VENDOR_CODES_URL,
         json=result,
     )
 

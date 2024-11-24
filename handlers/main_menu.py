@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from buttons.text_of_buttons import MAIN_MENU
-from markups import main_menu as mm
+from markups.markups import main_menu as mm
 from utils import get_text
 
 router: Router = Router()

@@ -1,6 +1,8 @@
 from settings import SERVER_ADDRESS
 
-VENDOR_CODES_URL: str = f'{SERVER_ADDRESS}/vendor_codes'
+GET_VENDOR_CODES_URL: str = f'{SERVER_ADDRESS}/api/vendor_code'
+POST_VENDOR_CODE_URL: str = f'{SERVER_ADDRESS}/api/vendor_code/create'
+DELETE_VENDOR_CODE_URL: str = f'{SERVER_ADDRESS}/api/vendor_code/' + '{0}'
 PARSERS_URL: str = f'{SERVER_ADDRESS}/parsers'
 RUN_ALL_URL: str = f'{SERVER_ADDRESS}/run_all'
 RUN_URL: str = f'{SERVER_ADDRESS}/run'

@@ -36,7 +36,12 @@ async def result_file_needful_vendor_codes(message: Message):
     await send_file_or_error(
         message=message,
         url=RUN_ALL_URL,
-        data={'only_needful_vendor_code': True},
+        kwargs={
+            'json': {
+                'only_needful_vendor_code': True,
+            }
+        },
+        method='post',
     )
 
 
@@ -48,5 +53,10 @@ async def result_file_vendor_codes_with_replacements(message: Message):
     await send_file_or_error(
         message=message,
         url=RUN_ALL_URL,
-        data={'only_needful_vendor_code': False},
+        kwargs={
+            'json': {
+                'only_needful_vendor_code': False,
+            }
+        },
+        method='post',
     )

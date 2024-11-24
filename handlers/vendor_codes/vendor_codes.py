@@ -15,13 +15,15 @@ router: Router = Router()
 @router.message(F.text)
 async def get_result_file(message: Message, url: str = RUN_URL, only_needful_vendor_code: bool = False):
     data: dict[str, t.Any] = {
-        'vendor_code': message.text,
-        'only_needful_vendor_code': only_needful_vendor_code,
+        'json': {
+            'vendor_code': message.text,
+            'only_needful_vendor_code': only_needful_vendor_code,
+        }
     }
 
     vendor_codes = await get_vendor_codes()
 
     if message.text in vendor_codes:
-        await send_file_or_error(message=message, url=url, data=data)
+        await send_file_or_error(message=message, url=url, kwargs=data, method='post')
     else:
         await message.answer(text=VENDOR_CODE_NOT_EXISTS_IN_LIST_VENDOR_CODES)

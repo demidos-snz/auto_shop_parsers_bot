@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 
 from constants.constants import BASE_TEXT, WELCOME_TEXT
-from markups import main_menu
+from markups.markups import main_menu
 
 router: Router = Router()
 
